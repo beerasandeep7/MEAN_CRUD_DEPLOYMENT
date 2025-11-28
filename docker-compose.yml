@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    image: beerasandeep7/backend:v1
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/mean-db
+    depends_on:
+      - mongo
+
+  frontend:
+    image: beerasandeep7/frontend:v1
+    container_name: frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
